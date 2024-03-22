@@ -3,12 +3,9 @@ import os
 
 
 class MarkdownBuilder:
-
     def __init__(self, directory: str):
         self.directory = directory
         self.current_directory = os.getcwd()
-        # print(self.current_directory)
-        # print(self.check_for_original())
 
     def delete_original(self):
         if self.check_for_original():
@@ -21,8 +18,10 @@ class MarkdownBuilder:
     def combine_files(self):
         self.delete_original()
         os.chdir(self.directory)
+        cmd = "cat "
         for f in glob.glob("*.md"):
-            os.system("cat " + f + " >> " + self.current_directory + "/main.md")
+            cmd += f + " "
+        os.system(cmd + " >> " + self.current_directory + "/main.md")
 
 
 if __name__ == "__main__":
